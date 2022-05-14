@@ -1,8 +1,6 @@
 # ImageCap
 
-
-
-
+<br>
 
 ## 项目依赖
 
@@ -24,9 +22,7 @@ from PySide2.QtCore import QRect
 from imagecap_ui import Ui_MainWindow
 ```
 
-
-
-
+<br>
 
 ## 程序介绍
 
@@ -38,9 +34,7 @@ ImageCap 是基于 PySide2 和 OpenCV 开发的神经网络训练素材采集程
 
 ImageCap 还支援自选图片保存路径，以及视频流实时预览功能。
 
-
-
-
+<br>
 
 ## 使用方法
 
@@ -67,6 +61,8 @@ ImageCap 还支援自选图片保存路径，以及视频流实时预览功能�
 路径选择完毕后，即可通过 `Cap!` 按钮进行连续拍照。程序的 Status 部分亦会实时对图片的保存状态进行提示。
 
 如果拍摄意外中断，可以通过 `Index` 重新设置索引，在同一路径下继续拍照、存储照片。
+
+<br>
 
 ## 额外的文件说明
 
