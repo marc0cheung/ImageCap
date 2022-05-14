@@ -1,8 +1,12 @@
 # ImageCap
 
+
+
+
+
 ## 项目依赖
 
-```
+```python
 # Use pip to install following packages
 pip install opencv-python
 pip install pyside2
@@ -20,6 +24,10 @@ from PySide2.QtCore import QRect
 from imagecap_ui import Ui_MainWindow
 ```
 
+
+
+
+
 ## 程序介绍
 
 ImageCap 是基于 PySide2 和 OpenCV 开发的神经网络训练素材采集程序。
@@ -29,6 +37,10 @@ ImageCap 是基于 PySide2 和 OpenCV 开发的神经网络训练素材采集程
 通过修改代码，可以兼容本地USB摄像头、远程网络摄像头等。
 
 ImageCap 还支援自选图片保存路径，以及视频流实时预览功能。
+
+
+
+
 
 ## 使用方法
 
