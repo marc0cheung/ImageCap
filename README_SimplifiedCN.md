@@ -1,5 +1,9 @@
 # ImageCap
 
+语言选择： [English](https://github.com/marc0cheung/ImageCap/blob/main/README.md) | 简体中文
+
+<br>
+
 <br>
 
 ## 项目依赖
