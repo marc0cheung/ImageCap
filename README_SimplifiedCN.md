@@ -50,7 +50,9 @@ ImageCap 还支援自选图片保存路径，以及视频流实时预览功能�
 
 软件运行起来后主界面如下图所示。
 
-<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/ImageCap_UI.png" alt="img" style="zoom:67%;" /></div>
+<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/ImageCap_UI.png" alt="img" width="400px" /></div>
+
+<br>
 
 可以通过 `Width` 和 `Height` 输入框调节需要采集图像的大小。（注：预览框大小自动调整尚未实现，有待进一步更新）。默认以 `.png` 格式进行采集。通过 `index` 输入框输入图片的索引。输入 “0”，则生成的第一个文件为 "1.png"。
 
@@ -72,13 +74,13 @@ ImageCap 还支援自选图片保存路径，以及视频流实时预览功能�
 
 训练神经网络常需要不同角度的目标物照片进行训练，此时可以使用这个功能将照片进行无裁剪的随机旋转。效果图如下：
 
-<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/randomRotateResult.png" alt="randomRotateResult" style="zoom:67%;" /></div>
+<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/randomRotateResult.png" alt="randomRotateResult" width="600px" /></div>
 
-
+<br>
 
 此功能页面的示意图如下，只需要选择存放原始图片的路径，选择保存旋转结果的路径，单击 Rotate 按钮即可开始随机旋转，实时的旋转结果可以在窗口中实时看到。固定旋转角度的功能还在开发中，ImageCap 的下一个版本将更新此功能。
 
-<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/randomRotateWindow.png" alt="randomRotateWindow" style="zoom:67%;" /></div>
+<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/randomRotateWindow.png" alt="randomRotateWindow" width="300px" /></div>
 
 <br>
 
@@ -86,15 +88,15 @@ ImageCap 还支援自选图片保存路径，以及视频流实时预览功能�
 
 在生产线上采集的目标物图片是经过裁剪的，此时需要将其缩放到 416 * 416 的图片中。如果利用 PhotoShop 一张张处理，会十分麻烦。这一个功能通过计算原始目标物图片的比例，并自动计算将其等比例缩放到高为 416px 的情况下，对应的宽度像素值。在经过缩放后，将目标物图片移动到背景图片上，实现如下图所示的效果。
 
-<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/fitBackgroundResult.png" alt="fitBackgroundResult" style="zoom:67%;" /></div>
+<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/fitBackgroundResult.png" alt="fitBackgroundResult" width="600px" /></div>
 
-
+<br>
 
 此功能页面的示意图如下所示，只需要选择存放目标物图片的路径、选择一张纯色或任意需要使用的背景图片以及选择图片输出路径，即可开始自动按比例将目标物套用到背景图片上。
 
-<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/fitBackgroundWindow.png" alt="fitBackgroundWindow" style="zoom:67%;" /></div>
+<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/fitBackgroundWindow.png" alt="fitBackgroundWindow" width="300px" /></div>
 
-
+<br>
 
 目前，需要用户自己通过 MS Paint 制作一张尺寸为 416 * 416 （当前必须为 416 * 416）的背景图片，然后在程序中选择这张图片。自定义选择纯色背景的功能、以及自定义背景尺寸的功能还没有开发完毕，这些功能将在下一个版本的 ImageCap 中放出。
 
