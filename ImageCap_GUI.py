@@ -231,21 +231,32 @@ class rotateImage(QDialog):
 
     def selectSource(self):
         self.SourceDIR = QFileDialog.getExistingDirectory(QDialog(), "Choose Source Images Directory")
-        self.rotateUI.source_label.setText("Source: " + str(self.SourceDIR))
+        if self.SourceDIR != '':
+            self.rotateUI.source_label.setText("Source: " + str(self.SourceDIR))
 
     def selectSavepath(self):
         self.SaveDIR = QFileDialog.getExistingDirectory(QDialog(), "Choose Save Directory")
-        self.rotateUI.savepath_label.setText("Save to: " + str(self.SaveDIR))
+        if self.SaveDIR != '':
+            self.rotateUI.savepath_label.setText("Save to: " + str(self.SaveDIR))
 
     def degreeSelect(self):
         QMessageBox.critical(self, "Degree Selector Error", "Degree Selector N/A Currently")
 
     def rotate(self):
-        rotate_image(str(self.SourceDIR), str(self.SaveDIR))
-        # 这里还是还是还是有问题啊，放假回来第一个修理它
-        # show = cv2.cvtColor(result, cv2.COLOR_BGR2RGB)
-        # showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
-        # self.rotateUI.result_label.setPixmap(QPixmap.fromImage(showImage))
+        if self.SourceDIR == '':
+            QMessageBox.critical(self, "Cannot Find Source Image", "Select Source Image Folder First")
+        elif self.SaveDIR == '':
+            QMessageBox.critical(self, "Save Error", "Select Save Destination Folder First")
+        else:
+            for filename in os.listdir(self.SourceDIR):
+                result = rotate_image(str(self.SourceDIR), filename)
+
+                show = cv2.cvtColor(result, cv2.COLOR_BGR2RGB)
+                showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
+                self.rotateUI.result_label.setPixmap(QPixmap.fromImage(showImage))
+                cv2.waitKey(1)
+
+                cv2.imwrite(self.SaveDIR + "/%s" % "rotated_" + filename, result)
 
 
 if __name__ == '__main__':
