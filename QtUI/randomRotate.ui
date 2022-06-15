@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RandRotateDialog</class>
+ <widget class="QDialog" name="RandRotateDialog">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>531</width>
+    <height>686</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Random Rotate without losing full image</string>
+  </property>
+  <widget class="QLabel" name="source_label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>470</y>
+     <width>381</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select Source Image Folder:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="rotate_btn">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>600</y>
+     <width>131</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Rotate!</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="source_btn">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>470</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="result_label">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>20</y>
+     <width>416</width>
+     <height>416</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Result</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="savepath_btn">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>510</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="savepath_label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>510</y>
+     <width>381</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select Results Saving Path:</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="degree_input">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>550</y>
+     <width>61</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="plainText">
+    <string>N/A</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="degree_btn">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>550</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="degree_label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>550</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select Rotate Degree:</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="degree_checkbox">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>548</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Random?</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
