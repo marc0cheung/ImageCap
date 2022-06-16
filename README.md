@@ -1,5 +1,5 @@
 # ImageCap
-**Select Language**: English | [Simplified Chinese](https://github.com/marc0cheung/ImageCap/blob/main/README_SimplifiedCN.md) 
+**Select Language**: English | [简体中文](https://github.com/marc0cheung/ImageCap/blob/main/README_SimplifiedCN.md) 
 
 <br>
 
@@ -62,9 +62,15 @@ To train a neural network, it is often necessary to take photos of the target at
 
 <br>
 
-This function page is illustrated on the Picture below. Simply select the path where the original image is stored, select the path where the rotation results will be saved and click the Rotate button to start a random rotation, the live rotation results can be seen in the window in real time. The ability to fix the rotation angle is still under development and will be updated in the next version of ImageCap.
+This function page is illustrated on the Picture below. Simply select the path where the original image is stored, select the path where the rotation results will be saved and click the Rotate button to start a random rotation, the live rotation results can be seen in the window in real time. Support rotation angle customization now. Simply input the degree you want in the degree input box and press "Save". Then "Rotate". Use `any degree value > 0` to rotate anti-clockwise, and use `any degree value < 0` e.g. (-30) to rotate clockwise.
 
 <div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/randomRotateWindow.png" alt="randomRotateWindow" width="300px" /></div>
+
+<br>
+
+**Example of rotating an image using a fixed angle:**
+
+<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/randomRotateWindow_FIXED.png" alt="randomRotateWindow_FIXED" width="300px" /></div>
 
 <br>
 
@@ -82,7 +88,15 @@ The function page is shown below. Simply select the path where the target image 
 
 <br>
 
-Currently, you need to create your own background image in MS Paint with a size of 416 * 416 (currently it must be 416 * 416) and then select this image in the program. The ability to custom select a solid colour background, and the ability to customise the size of the background is not yet developed and will be released in the next version of ImageCap.
+Currently, you need to create your own background image in MS Paint with a size of 416 * 416 (currently it must be 416 * 416) and then select this image in the program. Or just use the QColorDialog to select a background color by clicking the select button of the Background Color section, then the programme will automatically generated a 416*416 background image with the color you've chosen. 
+
+<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/selectColorFitBG.png" alt="selectColorFitBG" width="700px" /></div>
+
+<br>
+
+If you choose to use the generated background image, you do **NOT** need to select a background image again, the programme will automatically set the background image path to the generated background image.
+
+The ability to customise the size of the background is not yet developed and will be released in the next version of ImageCap.
 
 <br>
 

@@ -78,9 +78,15 @@ ImageCap 还支援自选图片保存路径，以及视频流实时预览功能�
 
 <br>
 
-此功能页面的示意图如下，只需要选择存放原始图片的路径，选择保存旋转结果的路径，单击 Rotate 按钮即可开始随机旋转，实时的旋转结果可以在窗口中实时看到。固定旋转角度的功能还在开发中，ImageCap 的下一个版本将更新此功能。
+此功能页面的示意图如下，只需要选择存放原始图片的路径，选择保存旋转结果的路径，单击 Rotate 按钮即可开始随机旋转，实时的旋转结果可以在窗口中实时看到。
 
 <div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/randomRotateWindow.png" alt="randomRotateWindow" width="300px" /></div>
+
+<br>
+
+固定旋转角度的功能已经上线，可以使用 选择旋转角度 部分的 Random 复选框来确认是否需要随机角度旋转。将复选框剔除选择，则可以在右侧的角度输入栏中输入自定义角度。支持浮点角度输入。当角度值大于 0 ，图片逆时针旋转，如果在角度前加上 `-` 号（负号），则图片顺时针旋转。
+
+<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/randomRotateWindow_FIXED.png" alt="randomRotateWindow_FIXED" width="300px" /></div>
 
 <br>
 
@@ -98,7 +104,15 @@ ImageCap 还支援自选图片保存路径，以及视频流实时预览功能�
 
 <br>
 
-目前，需要用户自己通过 MS Paint 制作一张尺寸为 416 * 416 （当前必须为 416 * 416）的背景图片，然后在程序中选择这张图片。自定义选择纯色背景的功能、以及自定义背景尺寸的功能还没有开发完毕，这些功能将在下一个版本的 ImageCap 中放出。
+目前，需要用户自己通过 MS Paint 制作一张尺寸为 416 * 416 （当前必须为 416 * 416）的背景图片，然后在程序中选择这张图片。或者你也可以选用如下图所示的自定义选择纯色背景的功能。该功能使用 QColorDialog 进行颜色的选择，根据用户所选择的颜色，会自动在程序根目录生成一张纯色背景图片，尺寸为 416*416。
+
+<div align="center"><img src="https://github.com/marc0cheung/ImageCap/raw/main/readme_assets/selectColorFitBG.png" alt="selectColorFitBG" width="700px" /></div>
+
+<br>
+
+如果你选用了自定义颜色生产背景的功能，则无需再额外选择背景图片，程序会将背景图片的路径指向生成的自定义纯色背景图片。
+
+自定义背景尺寸的功能还没有开发完毕，这些功能将在下一个版本的 ImageCap 中放出。
 
 <br>
 
