@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>531</width>
-    <height>686</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -101,6 +101,9 @@
    </property>
   </widget>
   <widget class="QPlainTextEdit" name="degree_input">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -110,10 +113,13 @@
     </rect>
    </property>
    <property name="plainText">
-    <string>N/A</string>
+    <string>30</string>
    </property>
   </widget>
   <widget class="QPushButton" name="degree_btn">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -150,6 +156,9 @@
    </property>
    <property name="text">
     <string>Random?</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>

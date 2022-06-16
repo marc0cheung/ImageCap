@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'fitBackgroundQzCLXH.ui'
+## Form generated from reading UI file 'fitBackgroundTJpHwF.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -38,12 +38,6 @@ class Ui_FitBgDialog(object):
         self.fit_btn = QPushButton(FitBgDialog)
         self.fit_btn.setObjectName(u"fit_btn")
         self.fit_btn.setGeometry(QRect(220, 640, 131, 28))
-        self.color_input = QPlainTextEdit(FitBgDialog)
-        self.color_input.setObjectName(u"color_input")
-        self.color_input.setGeometry(QRect(270, 590, 151, 31))
-        self.color_btn = QPushButton(FitBgDialog)
-        self.color_btn.setObjectName(u"color_btn")
-        self.color_btn.setGeometry(QRect(430, 590, 93, 28))
         self.color_label = QLabel(FitBgDialog)
         self.color_label.setObjectName(u"color_label")
         self.color_label.setGeometry(QRect(30, 590, 201, 31))
@@ -53,6 +47,14 @@ class Ui_FitBgDialog(object):
         self.savepath_label = QLabel(FitBgDialog)
         self.savepath_label.setObjectName(u"savepath_label")
         self.savepath_label.setGeometry(QRect(30, 550, 381, 31))
+        self.colorDialogBtn = QPushButton(FitBgDialog)
+        self.colorDialogBtn.setObjectName(u"colorDialogBtn")
+        self.colorDialogBtn.setGeometry(QRect(430, 590, 91, 28))
+        self.colorRGBLabel = QLabel(FitBgDialog)
+        self.colorRGBLabel.setObjectName(u"colorRGBLabel")
+        self.colorRGBLabel.setGeometry(QRect(261, 594, 151, 21))
+        self.colorRGBLabel.setAutoFillBackground(True)
+        self.colorRGBLabel.setAlignment(Qt.AlignCenter)
 
         self.retranslateUi(FitBgDialog)
 
@@ -67,10 +69,10 @@ class Ui_FitBgDialog(object):
         self.source_btn.setText(QCoreApplication.translate("FitBgDialog", u"Select", None))
         self.bg_btn.setText(QCoreApplication.translate("FitBgDialog", u"Select", None))
         self.fit_btn.setText(QCoreApplication.translate("FitBgDialog", u"Fit!", None))
-        self.color_input.setPlainText(QCoreApplication.translate("FitBgDialog", u"N/A Currently", None))
-        self.color_btn.setText(QCoreApplication.translate("FitBgDialog", u"Save", None))
-        self.color_label.setText(QCoreApplication.translate("FitBgDialog", u"Select Background Color:", None))
+        self.color_label.setText(QCoreApplication.translate("FitBgDialog", u"BG Color:", None))
         self.savepath_btn.setText(QCoreApplication.translate("FitBgDialog", u"Select", None))
         self.savepath_label.setText(QCoreApplication.translate("FitBgDialog", u"Select Results Saving Path:", None))
+        self.colorDialogBtn.setText(QCoreApplication.translate("FitBgDialog", u"Select", None))
+        self.colorRGBLabel.setText(QCoreApplication.translate("FitBgDialog", u"(255,255,255)", None))
     # retranslateUi
 

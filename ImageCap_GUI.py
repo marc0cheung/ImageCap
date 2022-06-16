@@ -3,18 +3,21 @@
 
 import cv2
 import os
+import re
 import sys
+
+import numpy
 from PySide2 import QtCore, QtGui, QtWidgets
 import qimage2ndarray
 
-from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QDialog
+from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QDialog, QColorDialog
 from PySide2.QtGui import QImage, QPixmap
 from PySide2.QtCore import QRect, Qt
 
 from imagecap_ui import Ui_MainWindow
 from ui_randomRotate import Ui_RandRotateDialog
 from ui_fitBackground import Ui_FitBgDialog
-from ImageRotate import rotate_image
+from ImageRotate import rotate_image, rotateImage_FixedDegree
 
 imgNum = 0
 FileDirectory = ''
@@ -23,7 +26,6 @@ img_height = 416
 
 
 class VideoPlayer(QMainWindow):
-
     pause = False
     video = False
 
@@ -129,9 +131,11 @@ class VideoPlayer(QMainWindow):
 
 class fitBackground(QDialog):
     SourceDIR = ''
-    BackgroundImage = ''
+    BackgroundImage = ''  # This is a List due to Pyside2 File Reader
+    BGDIR = ''
     SaveDIR = ''
     BGFrame = None
+    selectedColor = None
 
     def __init__(self):
         QDialog.__init__(self)
@@ -141,7 +145,7 @@ class fitBackground(QDialog):
         self.fitBgUI.source_btn.clicked.connect(self.selectSource)
         self.fitBgUI.bg_btn.clicked.connect(self.selectBG)
         self.fitBgUI.savepath_btn.clicked.connect(self.selectSavepath)
-        self.fitBgUI.color_btn.clicked.connect(self.colorSelect)
+        self.fitBgUI.colorDialogBtn.clicked.connect(self.colorSelect)
         self.fitBgUI.fit_btn.clicked.connect(self.fit)
 
     def selectSource(self):
@@ -152,6 +156,7 @@ class fitBackground(QDialog):
     def selectBG(self):
         self.BackgroundImage = QFileDialog.getOpenFileName(QDialog(), "Open Background Image")
         if self.BackgroundImage[0] != '':
+            self.BGDIR = self.BackgroundImage[0]
             self.fitBgUI.bg_label.setText("BG: " + str(self.BackgroundImage[0]))
             frame = cv2.imread(self.BackgroundImage[0])
             self.BGFrame = frame
@@ -165,20 +170,44 @@ class fitBackground(QDialog):
             self.fitBgUI.savepath_label.setText("Save to: " + str(self.SaveDIR))
 
     def colorSelect(self):
-        QMessageBox.critical(self, "Colour Selector Error", "Colour Selector N.A. Currently.")
+        # Image Resolution: 416 * 416, 3 channels, [:, :, 0] for Blue, [:, :, 1] for Green, [:, :, 2] for Red
+        # Decode RGB values from color_input_box
+        self.selectedColor = QColorDialog.getColor().getRgb()
+
+        redValue = int(self.selectedColor[0])
+        greenValue = int(self.selectedColor[1])
+        blueValue = int(self.selectedColor[2])
+
+        # Create a new pure color image for background
+        imgGenerated = numpy.zeros([416, 416, 3], numpy.uint8)
+
+        imgGenerated[:, :, 2] = numpy.ones([416, 416]) * redValue  # Red Channel
+        imgGenerated[:, :, 1] = numpy.ones([416, 416]) * greenValue  # Green Channel
+        imgGenerated[:, :, 0] = numpy.ones([416, 416]) * blueValue  # Blue Channel
+
+        # Show Generated Background in the programme window
+        show = cv2.cvtColor(imgGenerated, cv2.COLOR_BGR2RGB)
+        showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
+        self.fitBgUI.result_label.setPixmap(QPixmap.fromImage(showImage))
+
+        # Save Generated Background and pass its path to BGDIR for further usage in function 'fit'
+        cv2.imwrite("./Generated_BG.png", imgGenerated)
+        self.BGDIR = "./Generated_BG.png"
+        self.fitBgUI.bg_label.setText("BG: Use Generated Background Now.")
+        self.fitBgUI.colorRGBLabel.setText(str(self.selectedColor))
 
     def fit(self):
-        if self.BackgroundImage[0] == '':
+        if self.BGDIR == '':
             QMessageBox.critical(self, "Error", "Please Select a Background Image First!")
         elif self.SourceDIR == '':
             QMessageBox.critical(self, "Error", "Select a Source Folder First!")
         elif self.SaveDIR == '':
             QMessageBox.critical(self, "Error", "Select a Save Destination First!")
         else:
-            BGImage = cv2.imread(self.BackgroundImage[0])
+            BGImage = cv2.imread(self.BGDIR)
             for filename in os.listdir(self.SourceDIR):
                 print(filename)
-                sourceImg = cv2.imread(self.SourceDIR+'/'+filename)
+                sourceImg = cv2.imread(self.SourceDIR + '/' + filename)
 
                 # Get Image Shape
                 fitBG_imgWidth = sourceImg.shape[1]
@@ -197,7 +226,9 @@ class fitBackground(QDialog):
                 sourceImg = cv2.resize(sourceImg, (fitBG_ResizedWidth, fitBG_ResizedHeight))
 
                 # Insert the resized remote image to background
-                BGImage[0:int(fitBG_background_height) + 0, int(fitBG_background_width/2 - fitBG_ResizedWidth/2):int(fitBG_BGSetWidth)+int(fitBG_background_width/2 - fitBG_ResizedWidth/2)] = sourceImg
+                BGImage[0:int(fitBG_background_height) + 0,
+                int(fitBG_background_width / 2 - fitBG_ResizedWidth / 2):int(fitBG_BGSetWidth) + int(
+                    fitBG_background_width / 2 - fitBG_ResizedWidth / 2)] = sourceImg
                 result = BGImage
 
                 # Show and Save the Target Images
@@ -218,6 +249,8 @@ class fitBackground(QDialog):
 class rotateImage(QDialog):
     SourceDIR = ''
     SaveDIR = ''
+    randomRotate = True
+    rotateDegree = 30.0
 
     def __init__(self):
         QDialog.__init__(self)
@@ -228,6 +261,8 @@ class rotateImage(QDialog):
         self.rotateUI.savepath_btn.clicked.connect(self.selectSavepath)
         self.rotateUI.degree_btn.clicked.connect(self.degreeSelect)
         self.rotateUI.rotate_btn.clicked.connect(self.rotate)
+
+        self.rotateUI.degree_checkbox.clicked.connect(self.onRandomRotateChanged)
 
     def selectSource(self):
         self.SourceDIR = QFileDialog.getExistingDirectory(QDialog(), "Choose Source Images Directory")
@@ -240,13 +275,36 @@ class rotateImage(QDialog):
             self.rotateUI.savepath_label.setText("Save to: " + str(self.SaveDIR))
 
     def degreeSelect(self):
-        QMessageBox.critical(self, "Degree Selector Error", "Degree Selector N/A Currently")
+        if re.match("^[-+]?[0-9]|^[-+]?[0-9]+\.[0-9]+$", self.rotateUI.degree_input.toPlainText(), flags=0) is None:
+            QMessageBox.critical(self, "Degree Input Error", "Cannot Match Degree Value.")
+        else:
+            self.rotateDegree = float(self.rotateUI.degree_input.toPlainText())
+
+    def onRandomRotateChanged(self):
+        if self.rotateUI.degree_checkbox.checkState() == Qt.Checked:
+            self.randomRotate = True
+            self.rotateUI.degree_input.setEnabled(False)
+            self.rotateUI.degree_btn.setEnabled(False)
+        elif self.rotateUI.degree_checkbox.checkState() == Qt.Unchecked:
+            self.randomRotate = False
+            self.rotateUI.degree_input.setEnabled(True)
+            self.rotateUI.degree_btn.setEnabled(True)
 
     def rotate(self):
         if self.SourceDIR == '':
             QMessageBox.critical(self, "Cannot Find Source Image", "Select Source Image Folder First")
         elif self.SaveDIR == '':
             QMessageBox.critical(self, "Save Error", "Select Save Destination Folder First")
+        elif not self.randomRotate:
+            for filename in os.listdir(self.SourceDIR):
+                result_FixedDegree = rotateImage_FixedDegree(str(self.SourceDIR), filename, float(self.rotateDegree))
+
+                show = cv2.cvtColor(result_FixedDegree, cv2.COLOR_BGR2RGB)
+                showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
+                self.rotateUI.result_label.setPixmap(QPixmap.fromImage(showImage))
+                cv2.waitKey(1)
+
+                cv2.imwrite(self.SaveDIR + "/%s" % "FixedRotated_" + filename, result_FixedDegree)
         else:
             for filename in os.listdir(self.SourceDIR):
                 result = rotate_image(str(self.SourceDIR), filename)

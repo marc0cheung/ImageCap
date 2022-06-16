@@ -4,7 +4,7 @@
 """
 File Name: ImageRotate.py
 Program IDE: PyCharm
-Date: 20220510
+Date: 20220616
 Create File By Author: Marco Cheung
 """
 import random
@@ -58,7 +58,7 @@ def rotate_image(image_path: str, filename: str):
     # that the upper left corner is the origin of the coordinates
     M = cv.getRotationMatrix2D((w / 2, h / 2), 45, 1)
     # Start rotation, rotation at any angle
-    result = cv.warpAffine(img, M, (w, h))
+    result_cropped = cv.warpAffine(img, M, (w, h))
 
     # Displays the results of rotating images with the rotation angle set manually
     # result = np.hstack((img, result))
@@ -109,3 +109,45 @@ def rotate_image(image_path: str, filename: str):
     #
     # cv.waitKey(1)
     # cv.destroyAllWindows()
+
+
+def rotateImage_FixedDegree(image_path: str, filename: str, degree: float):
+    img = cv.imread(image_path + '/' + filename, cv.IMREAD_COLOR)
+    # cv.imshow('input', img)
+
+    h, w, c = img.shape
+
+    #  #######Get the rotated image without cropping#########
+    #  Define Empty Matrix
+    M = np.zeros((2, 3), dtype=np.float32)
+    # Set rotation angle
+    alpha = np.cos(np.pi / degree)
+    beta = np.sin(np.pi / degree)
+    print('alpha: ', alpha)
+    # Initialising the rotation matrix
+    M[0, 0] = alpha
+    M[1, 1] = alpha
+    M[0, 1] = beta
+    M[1, 0] = -beta
+    # Center Point Coordinate of Image
+    cx = w / 2
+    cy = h / 2
+    #
+    # Alpha of Width and Height
+    tx = (1 - alpha) * cx - beta * cy
+    ty = beta * cx + (1 - alpha) * cy
+    M[0, 2] = tx
+    M[1, 2] = ty
+    #
+    # The Height and Width of Image after rotation
+    rotated_w = int(h * np.abs(beta) + w * np.abs(alpha))
+    rotated_h = int(h * np.abs(alpha) + w * np.abs(beta))
+    #
+    # Centre position after rotation
+    M[0, 2] += rotated_w / 2 - cx
+    M[1, 2] += rotated_h / 2 - cy
+    #
+    result_FixedDegree = cv.warpAffine(img, M, (rotated_w, rotated_h))
+    result_FixedDegree = cv.resize(result_FixedDegree, (416, 416))
+
+    return result_FixedDegree

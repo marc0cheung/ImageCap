@@ -97,32 +97,6 @@
     <string>Fit!</string>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="color_input">
-   <property name="geometry">
-    <rect>
-     <x>270</x>
-     <y>590</y>
-     <width>151</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="plainText">
-    <string>N/A Currently</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="color_btn">
-   <property name="geometry">
-    <rect>
-     <x>430</x>
-     <y>590</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Save</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="color_label">
    <property name="geometry">
     <rect>
@@ -133,7 +107,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Select Background Color:</string>
+    <string>BG Color:</string>
    </property>
   </widget>
   <widget class="QPushButton" name="savepath_btn">
@@ -160,6 +134,38 @@
    </property>
    <property name="text">
     <string>Select Results Saving Path:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="colorDialogBtn">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>590</y>
+     <width>91</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="colorRGBLabel">
+   <property name="geometry">
+    <rect>
+     <x>261</x>
+     <y>594</y>
+     <width>151</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>(255,255,255)</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>
