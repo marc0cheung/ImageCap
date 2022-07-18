@@ -19,6 +19,9 @@ from ui_randomRotate import Ui_RandRotateDialog
 from ui_fitBackground import Ui_FitBgDialog
 from ImageRotate import rotate_image, rotateImage_FixedDegree
 
+# IF RUNNING ON macOS, Uncomment Line 23 (Below)
+os.environ['QT_MAC_WANTS_LAYER'] = '1'
+
 imgNum = 0
 FileDirectory = ''
 img_width = 416
@@ -275,10 +278,10 @@ class rotateImage(QDialog):
             self.rotateUI.savepath_label.setText("Save to: " + str(self.SaveDIR))
 
     def degreeSelect(self):
-        if re.match("^[-+]?[0-9]|^[-+]?[0-9]+\.[0-9]+$", self.rotateUI.degree_input.toPlainText(), flags=0) is None:
+        if re.match("^[-+]?[0-9]|^[-+]?[0-9]+\.[0-9]+$", self.rotateUI.degree_input.text(), flags=0) is None:
             QMessageBox.critical(self, "Degree Input Error", "Cannot Match Degree Value.")
         else:
-            self.rotateDegree = float(self.rotateUI.degree_input.toPlainText())
+            self.rotateDegree = float(self.rotateUI.degree_input.text())
 
     def onRandomRotateChanged(self):
         if self.rotateUI.degree_checkbox.checkState() == Qt.Checked:
