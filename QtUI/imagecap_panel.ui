@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>581</width>
-    <height>259</height>
+    <width>609</width>
+    <height>699</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,6 +15,60 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QWidget" name="VideoStream_Widget" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <spacer name="horizontalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>61</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="videoStream">
+         <property name="minimumSize">
+          <size>
+           <width>416</width>
+           <height>416</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>416</width>
+           <height>416</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Video Stream</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_9">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>60</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item>
      <spacer name="verticalSpacer">
       <property name="orientation">
@@ -264,9 +318,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="videoFlipCheckBox">
+        <widget class="QCheckBox" name="videoStreamCheckBox">
          <property name="text">
-          <string>Video Flip</string>
+          <string>Video Stream</string>
          </property>
         </widget>
        </item>
@@ -280,7 +334,14 @@
        <item>
         <widget class="QPushButton" name="RandRotateBtn">
          <property name="text">
-          <string>Rand Rotate</string>
+          <string>ImageRotate</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="RotateBtn">
+         <property name="text">
+          <string>Rotate</string>
          </property>
         </widget>
        </item>
@@ -295,13 +356,6 @@
         <widget class="QPushButton" name="CloseBtn">
          <property name="text">
           <string>Close</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="AboutBtn">
-         <property name="text">
-          <string>About</string>
          </property>
         </widget>
        </item>
@@ -363,19 +417,6 @@
        </item>
       </layout>
      </widget>
-    </item>
-    <item>
-     <spacer name="verticalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
     </item>
    </layout>
   </widget>

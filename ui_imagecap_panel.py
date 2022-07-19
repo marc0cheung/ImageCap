@@ -17,11 +17,34 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(581, 259)
+        MainWindow.resize(609, 699)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.VideoStream_Widget = QWidget(self.centralwidget)
+        self.VideoStream_Widget.setObjectName(u"VideoStream_Widget")
+        self.horizontalLayout_4 = QHBoxLayout(self.VideoStream_Widget)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalSpacer_8 = QSpacerItem(61, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_4.addItem(self.horizontalSpacer_8)
+
+        self.videoStream = QLabel(self.VideoStream_Widget)
+        self.videoStream.setObjectName(u"videoStream")
+        self.videoStream.setMinimumSize(QSize(416, 416))
+        self.videoStream.setMaximumSize(QSize(416, 416))
+        self.videoStream.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_4.addWidget(self.videoStream)
+
+        self.horizontalSpacer_9 = QSpacerItem(60, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_4.addItem(self.horizontalSpacer_9)
+
+
+        self.verticalLayout.addWidget(self.VideoStream_Widget)
+
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout.addItem(self.verticalSpacer)
@@ -133,10 +156,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer_7)
 
-        self.videoFlipCheckBox = QCheckBox(self.FuncBtn_Widget)
-        self.videoFlipCheckBox.setObjectName(u"videoFlipCheckBox")
+        self.videoStreamCheckBox = QCheckBox(self.FuncBtn_Widget)
+        self.videoStreamCheckBox.setObjectName(u"videoStreamCheckBox")
 
-        self.horizontalLayout.addWidget(self.videoFlipCheckBox)
+        self.horizontalLayout.addWidget(self.videoStreamCheckBox)
 
         self.FitBgBtn = QPushButton(self.FuncBtn_Widget)
         self.FitBgBtn.setObjectName(u"FitBgBtn")
@@ -148,6 +171,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.RandRotateBtn)
 
+        self.RotateBtn = QPushButton(self.FuncBtn_Widget)
+        self.RotateBtn.setObjectName(u"RotateBtn")
+
+        self.horizontalLayout.addWidget(self.RotateBtn)
+
         self.CapBtn = QPushButton(self.FuncBtn_Widget)
         self.CapBtn.setObjectName(u"CapBtn")
 
@@ -157,11 +185,6 @@ class Ui_MainWindow(object):
         self.CloseBtn.setObjectName(u"CloseBtn")
 
         self.horizontalLayout.addWidget(self.CloseBtn)
-
-        self.AboutBtn = QPushButton(self.FuncBtn_Widget)
-        self.AboutBtn.setObjectName(u"AboutBtn")
-
-        self.horizontalLayout.addWidget(self.AboutBtn)
 
         self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -191,10 +214,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.SavePath_Widget)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer_2)
-
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -207,6 +226,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"ImageCap V1.2", None))
+        self.videoStream.setText(QCoreApplication.translate("MainWindow", u"Video Stream", None))
         self.width_label.setText(QCoreApplication.translate("MainWindow", u"Width:", None))
         self.width_input.setText(QCoreApplication.translate("MainWindow", u"416", None))
         self.height_label.setText(QCoreApplication.translate("MainWindow", u"Height:", None))
@@ -214,12 +234,12 @@ class Ui_MainWindow(object):
         self.index_label.setText(QCoreApplication.translate("MainWindow", u"Index:", None))
         self.index_input.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.SaveIndexBtn.setText(QCoreApplication.translate("MainWindow", u"Save Pref.", None))
-        self.videoFlipCheckBox.setText(QCoreApplication.translate("MainWindow", u"Video Flip", None))
+        self.videoStreamCheckBox.setText(QCoreApplication.translate("MainWindow", u"Video Stream", None))
         self.FitBgBtn.setText(QCoreApplication.translate("MainWindow", u"Fit BG", None))
-        self.RandRotateBtn.setText(QCoreApplication.translate("MainWindow", u"Rand Rotate", None))
+        self.RandRotateBtn.setText(QCoreApplication.translate("MainWindow", u"ImageRotate", None))
+        self.RotateBtn.setText(QCoreApplication.translate("MainWindow", u"Rotate", None))
         self.CapBtn.setText(QCoreApplication.translate("MainWindow", u"Cap!", None))
         self.CloseBtn.setText(QCoreApplication.translate("MainWindow", u"Close", None))
-        self.AboutBtn.setText(QCoreApplication.translate("MainWindow", u"About", None))
         self.path_label.setText(QCoreApplication.translate("MainWindow", u"Select Capture Path...", None))
         self.SelcPathBtn.setText(QCoreApplication.translate("MainWindow", u"Select", None))
     # retranslateUi
