@@ -6,9 +6,10 @@ import re
 import sys
 import cv2
 import numpy
+import threading
 
 from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QDialog, QColorDialog
+from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QDialog, QColorDialog, QSizePolicy
 from PySide2.QtGui import QImage, QPixmap
 from PySide2.QtCore import QRect, Qt
 
@@ -28,6 +29,24 @@ class MainPanel(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+    def OpenCap(self):
+        self.cap = cv2.VideoCapture(0)
+        self.frameRate = self.cap.get(cv2.CAP_PROP_FPS)
+        th = threading.Thread(target=self.Display)
+        th.start()
+
+    def Display(self):
+        while self.cap.isOpened():
+            success, frame = self.cap.read()
+            # RGB to BGR
+            frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+            img = QImage(frame.data, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
+            self.ui.videoStream.setPixmap(QPixmap.fromImage(img))
+            # Fill with Ratio
+            self.ui.videoStream.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            self.ui.videoStream.setScaledContents(True)  # Set whether the programme need to scale the image
+            # cv2.waitKey(1)
 
 
 class fitBackground(QDialog):
@@ -226,4 +245,5 @@ if __name__ == '__main__':
     mainPanel.ui.FitBgBtn.clicked.connect(fitBG.show)
     mainPanel.ui.RandRotateBtn.clicked.connect(rotateIMG.show)
     mainPanel.show()
+    mainPanel.OpenCap()
     sys.exit(app.exec_())
