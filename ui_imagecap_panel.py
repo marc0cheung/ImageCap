@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(609, 699)
+        MainWindow.resize(581, 699)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -156,11 +156,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer_7)
 
-        self.videoStreamCheckBox = QCheckBox(self.FuncBtn_Widget)
-        self.videoStreamCheckBox.setObjectName(u"videoStreamCheckBox")
-
-        self.horizontalLayout.addWidget(self.videoStreamCheckBox)
-
         self.FitBgBtn = QPushButton(self.FuncBtn_Widget)
         self.FitBgBtn.setObjectName(u"FitBgBtn")
 
@@ -234,7 +229,6 @@ class Ui_MainWindow(object):
         self.index_label.setText(QCoreApplication.translate("MainWindow", u"Index:", None))
         self.index_input.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.SaveIndexBtn.setText(QCoreApplication.translate("MainWindow", u"Save Pref.", None))
-        self.videoStreamCheckBox.setText(QCoreApplication.translate("MainWindow", u"Video Stream", None))
         self.FitBgBtn.setText(QCoreApplication.translate("MainWindow", u"Fit BG", None))
         self.RandRotateBtn.setText(QCoreApplication.translate("MainWindow", u"ImageRotate", None))
         self.RotateBtn.setText(QCoreApplication.translate("MainWindow", u"Rotate", None))
