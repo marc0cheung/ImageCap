@@ -21,6 +21,11 @@ from ImageRotate import rotate_image, rotateImage_FixedDegree
 # IF RUNNING ON macOS, Uncomment Line 19 (Below)
 os.environ['QT_MAC_WANTS_LAYER'] = '1'
 
+imgNum = 0
+FileDirectory = ""
+img_width = 416
+img_height = 416
+
 
 class MainPanel(QMainWindow):
     video_flip = False
@@ -29,6 +34,12 @@ class MainPanel(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        # Button Signals and Slots
+        self.ui.SaveIndexBtn.clicked.connect(self.setImgNum)
+        self.ui.SelcPathBtn.clicked.connect(self.chooseDir)
+        self.ui.CapBtn.clicked.connect(self.capFrame)
+        self.ui.CloseBtn.clicked.connect(self.exitProgram)
 
     def OpenCap(self):
         self.cap = cv2.VideoCapture(0)
@@ -47,6 +58,51 @@ class MainPanel(QMainWindow):
             self.ui.videoStream.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
             self.ui.videoStream.setScaledContents(True)  # Set whether the programme need to scale the image
             # cv2.waitKey(1)
+
+    def capFrame(self):
+        global imgNum
+        global FileDirectory
+        global img_width, img_height
+
+        if FileDirectory == '':
+            QMessageBox.critical(self, 'Error', 'Please select save directory first.')
+        else:
+            success, frame = self.camera_capture.read()
+            frame = cv2.resize(frame, (img_width, img_height))  # resolution setting: width x height
+            show = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
+            self.ui.videoStream.setPixmap(QPixmap.fromImage(showImage))
+            self.ui.videoStream.setScaledContents(True)
+
+            imgNum = int(imgNum) + 1
+            # Write Images using imwrite
+            # cv2.imwrite("D:\YOLOTraining\photos\%s.png" % (str(imgNum)), frame)
+            cv2.imwrite(str(FileDirectory) + "/%s.png" % (str(imgNum)), frame)
+
+            # print("Photo " + str(imgNum) + " Saved!")
+            self.ui.statusbar.showMessage("Photo\n" + str(imgNum) + "\nSaved!")
+
+    def chooseDir(self):
+        global FileDirectory
+        FileDirectory = QFileDialog.getExistingDirectory(QMainWindow(), "Choose Save Directory")
+        # print("File DIR: " + str(FileDirectory))
+        self.ui.path_label.setText("Save to: " + str(FileDirectory))
+
+    def setImgNum(self):
+        global imgNum
+        global img_width, img_height
+
+        imgNum = int(self.ui.index_input.text())
+        img_width = int(self.ui.width_input.text())
+        img_height = int(self.ui.height_input.text())
+        # print("Index Now: " + str(int(self.ui.index_input.toPlainText())))
+        self.ui.statusbar.showMessage("Index\nNow\n" + str(int(self.ui.index_input.text())))
+        # self.ui.videoStream.setGeometry(QRect(30, 90, img_width, img_height))
+
+    def exitProgram(self):
+        self.cap.release()
+        # cv2.destroyAllWindows()
+        self.close()
 
 
 class fitBackground(QDialog):
