@@ -14,7 +14,7 @@ from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QDialog, QC
 from PySide2.QtGui import QImage, QPixmap
 from PySide2.QtCore import QRect, Qt
 
-from imagecap_ui import Ui_MainWindow
+from ui_imagecap import Ui_MainWindow
 from ui_randomRotate import Ui_RandRotateDialog
 from ui_fitBackground import Ui_FitBgDialog
 from ImageRotate import rotate_image, rotateImage_FixedDegree
@@ -52,9 +52,9 @@ class VideoPlayer(QMainWindow):
         self.ui.CapBtn.clicked.connect(self.capFrame)
         self.ui.CloseBtn.clicked.connect(self.close_win)
         self.ui.SelcPathBtn.clicked.connect(self.chooseDir)
-        self.ui.AboutBtn.clicked.connect(self.say_hello)
+        # self.ui.AboutBtn.clicked.connect(self.say_hello)
 
-        self.ui.videoFlipCheckBox.clicked.connect(self.onVideoFlip_Changed)
+        # self.ui.videoFlipCheckBox.clicked.connect(self.onVideoFlip_Changed)
 
     def setup_camera(self, fps):
         self.camera_capture.set(3, self.video_size.width())
@@ -74,18 +74,18 @@ class VideoPlayer(QMainWindow):
             frame = cv2.flip(frame, -1, frame)
 
         image = qimage2ndarray.array2qimage(frame)
-        self.ui.label.setPixmap(QtGui.QPixmap.fromImage(image))
+        self.ui.videoStream.setPixmap(QtGui.QPixmap.fromImage(image))
 
     def setImgNum(self):
         global imgNum
         global img_width, img_height
 
-        imgNum = int(self.ui.index_input.toPlainText())
-        img_width = int(self.ui.width_input.toPlainText())
-        img_height = int(self.ui.height_input.toPlainText())
+        imgNum = int(self.ui.index_input.text())
+        img_width = int(self.ui.width_input.text())
+        img_height = int(self.ui.height_input.text())
         # print("Index Now: " + str(int(self.ui.index_input.toPlainText())))
-        self.ui.status_label.setText("Index\nNow\n" + str(int(self.ui.index_input.toPlainText())))
-        self.ui.label.setGeometry(QRect(30, 90, img_width, img_height))
+        self.ui.statusbar.showMessage("Index\nNow\n" + str(int(self.ui.index_input.text())))
+        # self.ui.videoStream.setGeometry(QRect(30, 90, img_width, img_height))
 
     def capFrame(self):
         global imgNum
@@ -99,8 +99,8 @@ class VideoPlayer(QMainWindow):
             frame = cv2.resize(frame, (img_width, img_height))  # resolution setting: width x height
             show = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
-            self.ui.label.setPixmap(QPixmap.fromImage(showImage))
-            self.ui.label.setScaledContents(True)
+            self.ui.videoStream.setPixmap(QPixmap.fromImage(showImage))
+            self.ui.videoStream.setScaledContents(True)
 
             imgNum = int(imgNum) + 1
             # Write Images using imwrite
@@ -108,7 +108,7 @@ class VideoPlayer(QMainWindow):
             cv2.imwrite(str(FileDirectory) + "/%s.png" % (str(imgNum)), frame)
 
             # print("Photo " + str(imgNum) + " Saved!")
-            self.ui.status_label.setText("Photo\n" + str(imgNum) + "\nSaved!")
+            self.ui.statusbar.showMessage("Photo\n" + str(imgNum) + "\nSaved!")
 
     def chooseDir(self):
         global FileDirectory
@@ -116,11 +116,13 @@ class VideoPlayer(QMainWindow):
         # print("File DIR: " + str(FileDirectory))
         self.ui.path_label.setText("Save to: " + str(FileDirectory))
 
+    '''
     def onVideoFlip_Changed(self):
         if self.ui.videoFlipCheckBox.checkState() == Qt.Checked:
             self.video_flip = True
         elif self.ui.videoFlipCheckBox.checkState() == Qt.Unchecked:
             self.video_flip = False
+    '''
 
     def say_hello(self):
         QMessageBox.information(self, 'About this software', 'Designed by Marco Cheung')
