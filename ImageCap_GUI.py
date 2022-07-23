@@ -23,16 +23,22 @@ from ImageRotate import rotate_image, rotateImage_FixedDegree
 os.environ['QT_MAC_WANTS_LAYER'] = '1'
 
 imgNum = 0
+rotateIndex = 1
 FileDirectory = ''
 img_width = 416
 img_height = 416
+
+
+def onRotateBtn_Clicked():
+    global rotateIndex
+    rotateIndex = rotateIndex * (-1)
 
 
 class VideoPlayer(QMainWindow):
     pause = False
     video = False
 
-    video_flip = False
+    # video_flip = False
 
     def __init__(self, width=416, height=416, fps=30):
         super().__init__()
@@ -52,9 +58,11 @@ class VideoPlayer(QMainWindow):
         self.ui.CapBtn.clicked.connect(self.capFrame)
         self.ui.CloseBtn.clicked.connect(self.close_win)
         self.ui.SelcPathBtn.clicked.connect(self.chooseDir)
-        # self.ui.AboutBtn.clicked.connect(self.say_hello)
+        self.ui.RotateBtn.clicked.connect(onRotateBtn_Clicked)
 
         # self.ui.videoFlipCheckBox.clicked.connect(self.onVideoFlip_Changed)
+
+        self.ui.statusbar.showMessage("Marco Cheung @ 2022,  https://github.com/marc0cheung/ImageCap/")
 
     def setup_camera(self, fps):
         self.camera_capture.set(3, self.video_size.width())
@@ -70,7 +78,7 @@ class VideoPlayer(QMainWindow):
 
         frame = cv2.resize(frame, (416, 416))
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        if self.video_flip:
+        if rotateIndex == (-1):
             frame = cv2.flip(frame, -1, frame)
 
         image = qimage2ndarray.array2qimage(frame)
@@ -113,19 +121,9 @@ class VideoPlayer(QMainWindow):
     def chooseDir(self):
         global FileDirectory
         FileDirectory = QFileDialog.getExistingDirectory(QMainWindow(), "Choose Save Directory")
-        # print("File DIR: " + str(FileDirectory))
-        self.ui.path_label.setText("Save to: " + str(FileDirectory))
-
-    '''
-    def onVideoFlip_Changed(self):
-        if self.ui.videoFlipCheckBox.checkState() == Qt.Checked:
-            self.video_flip = True
-        elif self.ui.videoFlipCheckBox.checkState() == Qt.Unchecked:
-            self.video_flip = False
-    '''
-
-    def say_hello(self):
-        QMessageBox.information(self, 'About this software', 'Designed by Marco Cheung')
+        if FileDirectory != "":
+            # print("File DIR: " + str(FileDirectory))
+            self.ui.path_label.setText("Save to: " + str(FileDirectory))
 
     def close_win(self):
         self.camera_capture.release()
